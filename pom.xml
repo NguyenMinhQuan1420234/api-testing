@@ -30,6 +30,10 @@
         <testng.version>7.6.1</testng.version>
         <gson.version>2.9.0</gson.version>
         <rest-assured.version>4.5.0</rest-assured.version>
+        <org.json.version>20220320</org.json.version>
+        <json-simple.version>1.1.1</json-simple.version>
+        <json-schema-validator.version>5.1.1</json-schema-validator.version>
+        <org.json.version>20220320</org.json.version>
     </properties>
     <dependencies>
         <dependency>
@@ -110,6 +114,30 @@
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
             <scope>test</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.json</groupId>-->
+<!--            <artifactId>json</artifactId>-->
+<!--            <version>${org.json.version}</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${json-schema-validator.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
         </dependency>
     </dependencies>
 

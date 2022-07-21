@@ -19,3 +19,4 @@ public class apiTest {
         RestAssured.given().accept("https://serverest.dev/usuarios").then().body("quantidade",equalTo(4));
     }
 }
+
