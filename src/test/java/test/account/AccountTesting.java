@@ -26,6 +26,7 @@ public class AccountTesting {
         String token = response.jsonPath().getString("token");
         System.out.println(token);
         assertThat("verify message:",token,is(notNullValue()));
-
     }
+
+
 }
