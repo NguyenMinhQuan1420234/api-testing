@@ -20,9 +20,10 @@ public class APIConstant {
     public static String LOGIN_ENDPOINT = "/Authorized";
     public static String GENERATE_TOKEN_ENDPOINT = "/GenerateToken";
     public static String CREATE_USER_ENDPOINT = "/User";
-    public static String GET_DETAIL_USER_ENDPOINT = "/User";
+    public static String GET_DETAIL_USER_ENDPOINT = "/User/%s";
     public static String DEMOQA_BOOK_STORE_PREFIX = "/BookStore/v1";
     public static String REPLACE_BOOK_ENDPOINT = "/Books/%s";
-    public static String ADD_DELETE_BOOK_TO_COLLECTION_ENDPOINT = "/Books";
+    public static String ADD_BOOK_TO_COLLECTION_ENDPOINT = "/Books";
+    public static String DELETE_BOOK_IN_COLLECTION_ENDPOINT = "/Books";
     public static String DELETE_ALL_BOOKS_IN_COLLECTION_ENDPOINT = "/Books?UserId=%s";
 }

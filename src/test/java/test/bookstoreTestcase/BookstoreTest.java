@@ -1,4 +1,4 @@
-package test.bookstore;
+package test.bookstoreTestcase;
 
 import io.restassured.response.Response;
 import org.testng.ITestContext;
@@ -17,7 +17,7 @@ public class BookstoreTest {
 
     @BeforeTest
     public void GetUser(ITestContext context) {
-        String userToken = accountHelper.generateToken(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
+        String userToken = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
         context.setAttribute("userToken", userToken);
         context.setAttribute("userId", userId);
@@ -34,11 +34,20 @@ public class BookstoreTest {
     }
 
     @Test
-    public void DeleteAddedBookToCollectionSuccessfully(ITestContext context) {
+    public void DeleteAddedBookInCollectionSuccessfully(ITestContext context) {
         String userToken = (String) context.getAttribute("userToken");
         String userId = (String) context.getAttribute("userId");
 
-        bookstoreHelper.addNewBook(userToken, userId, new String[]{APIConstant.PUBLIC_BOOK_ID[0]});
+        Response response = bookstoreHelper.deleteBook(userToken, userId, APIConstant.PUBLIC_BOOK_ID[1]);
+        assertThat("verify status code: ", response.getStatusCode(), equalTo(204));
+    }
 
+    @Test
+    public void DeleteAllBookInCollectionSuccessfully(ITestContext context) {
+        String userToken = (String) context.getAttribute("userToken");
+        String userId = (String) context.getAttribute("userId");
+
+        Response response = bookstoreHelper.deleteAllBooks(userToken, userId);
+        assertThat("verify status code: ", response.getStatusCode(), equalTo(204));
     }
 }

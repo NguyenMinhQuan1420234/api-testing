@@ -2,8 +2,8 @@ package utils.api;
 
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import org.json.JSONObject;
-import org.json.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import utils.APIConstant;
 
 import java.util.HashMap;
@@ -13,19 +13,19 @@ public class BookstoreHelper extends RequestHelper{
     private String prefixUrl = APIConstant.DEMOQA_HOST + APIConstant.DEMOQA_BOOK_STORE_PREFIX;
 
     public Response addNewBook(String userToken, String userId, String[] isbn) {
-        String url = prefixUrl + APIConstant.ADD_DELETE_BOOK_TO_COLLECTION_ENDPOINT;
-        Map<String,String> map = new HashMap<>();
+        String url = prefixUrl + APIConstant.ADD_BOOK_TO_COLLECTION_ENDPOINT;
+        JSONObject body = new JSONObject();
+        Map<String, String> map = new HashMap<>();
         map.put("Authorization", "Bearer " + userToken);
         Headers headers = createHeaders(map);
-        JSONArray collectionOfIsbns = new JSONArray();
+        JSONArray collectionIsbns = new JSONArray();
         for (String id: isbn) {
             JSONObject bookId = new JSONObject();
             bookId.put("isbn", id);
-            collectionOfIsbns.put(bookId);
+            collectionIsbns.add(bookId);
         }
-        JSONObject body = new JSONObject();
-        body.put("userID", userId);
-        body.put("collectionOfIsbns", collectionOfIsbns);
+        body.put("userId", userId);
+        body.put("collectionOfIsbns", collectionIsbns);
         Response response = sendRequest(
                 APIConstant.RequestType.POST,
                 url,
@@ -48,12 +48,12 @@ public class BookstoreHelper extends RequestHelper{
     }
 
     public Response deleteBook(String userToken, String userId, String isbn) {
-        String url = prefixUrl + String.format(APIConstant.DELETE_ALL_BOOKS_IN_COLLECTION_ENDPOINT, userId);
+        String url = prefixUrl + APIConstant.DELETE_BOOK_IN_COLLECTION_ENDPOINT;
         Map<String,String> map = new HashMap<>();
         map.put("Authorization", "Bearer " + userToken);
         Headers headers = createHeaders(map);
         JSONObject body = new JSONObject();
-        body.put("íbsn", isbn);
+        body.put("ibsn", isbn);
         body.put("userId", userId);
         Response response = sendRequest(
                 APIConstant.RequestType.DELETE,
