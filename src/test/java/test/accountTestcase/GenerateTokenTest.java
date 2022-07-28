@@ -16,41 +16,37 @@ import static org.hamcrest.Matchers.*;
 public class GenerateTokenTest {
 
     AccountHelper accountHelper = new AccountHelper();
-    @Test
-    void genToken() {
-        RestAssured.baseURI = "https://demoqa.com";
-        RequestSpecification request = RestAssured.given()
-                .accept("application/json")
-                .contentType("application/json");
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("userName", "quan");
-        requestParams.put("password", "@Abcd1234");
-        request.body(requestParams.toJSONString());
-        Response response = request.post("/Account/v1/GenerateToken");
-        String token = response.jsonPath().getString("token");
-        System.out.println(token);
-        assertThat("verify message:",token,is(notNullValue()));
-    }
 
     @Test
     void generateTokenSuccessfully() {
         String username = APIConstant.PUBLIC_ACCOUNT_USER_NAME;
         String password = APIConstant.PUBLIC_ACCOUNT_PASSWORD;
-
         Response response = accountHelper.generateToken(username, password);
+
         String token = response.jsonPath().getString("token");
+        assertThat("verify message: ", response.getStatusCode(), equalTo(200));
         assertThat("verify message: ", token, is(notNullValue()));
+        assertThat(response.jsonPath().getString("result"),equalTo("User authorized successfully."));
+
     }
 
     @Test
-    void generateTokenUnsuccessfully() {
+    void generateTokenUnsuccessfullyUnauthorized() {
         String username = "invalid username";
         String password = APIConstant.PUBLIC_ACCOUNT_PASSWORD;
-
         Response response = accountHelper.generateToken(username, password);
-//        assertThat("verify message: ", response.jsonPath().getString("token"), is(null));
+
+        assertThat("verify message: ", response.getStatusCode(), equalTo(200));
         assertThat(response.jsonPath().getString("result"),equalTo("User authorization failed."));
     }
 
+    @Test
+    void generateTokenUnsuccessfullyEmptyPassword() {
+        String username = "invalid username";
+        String password = "";
+        Response response = accountHelper.generateToken(username, password);
 
+        assertThat("verify message: ", response.getStatusCode(), equalTo(400));
+        assertThat(response.jsonPath().getString("message"),equalTo("UserName and Password required."));
+    }
 }

@@ -17,6 +17,7 @@ public class GetUserTest {
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
 
         Response response = accountHelper.getUser(token,userId);
+
         assertThat("verify message: ", response.getStatusCode(), equalTo(200));
     }
 
@@ -26,6 +27,7 @@ public class GetUserTest {
         String userId = "invalid userID";
 
         Response response = accountHelper.getUser(token,userId);
+
         assertThat("verify message: ", response.getStatusCode(), equalTo(401));
     }
 
