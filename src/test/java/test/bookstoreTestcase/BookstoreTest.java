@@ -16,7 +16,7 @@ public class BookstoreTest {
     BookstoreHelper bookstoreHelper = new BookstoreHelper();
 
     @BeforeTest
-    public void GetUser(ITestContext context) {
+    public void getUser(ITestContext context) {
         String userToken = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
         context.setAttribute("userToken", userToken);
@@ -24,7 +24,23 @@ public class BookstoreTest {
     }
 
     @Test
-    public void AddNewBookToCollectionSuccessfully(ITestContext context) {
+    public void getAllBookInformation() {
+        String isbn = APIConstant.PUBLIC_BOOK_ID[0];
+        Response response = bookstoreHelper.getAllBookInfo(isbn);
+
+        assertThat("verify status code: ", response.getStatusCode(), equalTo(200));
+    }
+
+    @Test
+    public void getOneBookInformation() {
+        String isbn = APIConstant.PUBLIC_BOOK_ID[0];
+        Response response = bookstoreHelper.getOneBookInfo(isbn);
+
+        assertThat("verify status code: ", response.getStatusCode(), equalTo(200));
+    }
+
+    @Test
+    public void addNewBookToCollectionSuccessfully(ITestContext context) {
         String userToken = (String) context.getAttribute("userToken");
         String userId = (String) context.getAttribute("userId");
 
@@ -34,7 +50,7 @@ public class BookstoreTest {
     }
 
     @Test
-    public void DeleteAddedBookInCollectionSuccessfully(ITestContext context) {
+    public void deleteAddedBookInCollectionSuccessfully(ITestContext context) {
         String userToken = (String) context.getAttribute("userToken");
         String userId = (String) context.getAttribute("userId");
 
@@ -43,11 +59,21 @@ public class BookstoreTest {
     }
 
     @Test
-    public void DeleteAllBookInCollectionSuccessfully(ITestContext context) {
+    public void deleteAllBooksInCollectionSuccessfully(ITestContext context) {
         String userToken = (String) context.getAttribute("userToken");
         String userId = (String) context.getAttribute("userId");
 
         Response response = bookstoreHelper.deleteAllBooks(userToken, userId);
         assertThat("verify status code: ", response.getStatusCode(), equalTo(204));
+    }
+
+    @Test
+    public void replaceBookInCollectionSuccessfully(ITestContext context) {
+        String userToken = (String) context.getAttribute("userToken");
+        String userId = (String) context.getAttribute("userId");
+        bookstoreHelper.addNewBook(userToken, userId, APIConstant.PUBLIC_BOOK_ID);
+        Response response = bookstoreHelper.replaceBook(userToken, userId, APIConstant.PUBLIC_BOOK_ID[0], APIConstant.NEW_BOOK_ID);
+        assertThat("verify message: ", response.getStatusCode(), equalTo(200));
+        bookstoreHelper.deleteAllBooks(userToken,userId);
     }
 }

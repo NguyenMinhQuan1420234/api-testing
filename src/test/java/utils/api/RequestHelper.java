@@ -48,7 +48,7 @@ public class RequestHelper {
             case PATCH:
                 response = reqSpec.body(body).when().patch(url);
             case DELETE:
-                response = reqSpec.when().delete(url);
+                response = reqSpec.body(body).when().delete(url);
                 break;
             default:
                 response = reqSpec.get(url);

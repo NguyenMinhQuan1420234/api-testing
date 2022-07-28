@@ -12,6 +12,25 @@ import java.util.Map;
 public class BookstoreHelper extends RequestHelper{
     private String prefixUrl = APIConstant.DEMOQA_HOST + APIConstant.DEMOQA_BOOK_STORE_PREFIX;
 
+    public Response getAllBookInfo(String isbn) {
+        String url = prefixUrl + String.format(APIConstant.GET_DETAIL_ALL_BOOK_ENDPOINT, isbn);
+        Response response = sendRequest(
+                APIConstant.RequestType.GET,
+                url,
+                null,
+                toString());
+        return response;
+    }
+    public Response getOneBookInfo(String isbn) {
+        String url = prefixUrl + String.format(APIConstant.GET_DETAIL_BOOK_ENDPOINT, isbn);
+        Response response = sendRequest(
+                APIConstant.RequestType.GET,
+                url,
+                null,
+                toString());
+        return response;
+    }
+
     public Response addNewBook(String userToken, String userId, String[] isbn) {
         String url = prefixUrl + APIConstant.ADD_BOOK_TO_COLLECTION_ENDPOINT;
         JSONObject body = new JSONObject();
@@ -49,11 +68,11 @@ public class BookstoreHelper extends RequestHelper{
 
     public Response deleteBook(String userToken, String userId, String isbn) {
         String url = prefixUrl + APIConstant.DELETE_BOOK_IN_COLLECTION_ENDPOINT;
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("Authorization", "Bearer " + userToken);
         Headers headers = createHeaders(map);
         JSONObject body = new JSONObject();
-        body.put("ibsn", isbn);
+        body.put("isbn", isbn);
         body.put("userId", userId);
         Response response = sendRequest(
                 APIConstant.RequestType.DELETE,
@@ -65,11 +84,11 @@ public class BookstoreHelper extends RequestHelper{
 
     public Response replaceBook(String userToken, String userId, String currentIsbn, String newIsbn) {
         String url = prefixUrl + String.format(APIConstant.REPLACE_BOOK_ENDPOINT, currentIsbn);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("Authorization", "Bearer " + userToken);
         Headers headers = createHeaders(map);
         JSONObject body = new JSONObject();
-        body.put("íbsn", newIsbn);
+        body.put("isbn", newIsbn);
         body.put("userId", userId);
         Response response = sendRequest(
                 APIConstant.RequestType.PUT,

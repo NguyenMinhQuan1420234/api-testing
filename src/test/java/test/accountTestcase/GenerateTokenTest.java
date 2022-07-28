@@ -13,11 +13,11 @@ import utils.api.AccountHelper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class GenerateToken {
+public class GenerateTokenTest {
 
     AccountHelper accountHelper = new AccountHelper();
     @Test
-    void GenToken() {
+    void genToken() {
         RestAssured.baseURI = "https://demoqa.com";
         RequestSpecification request = RestAssured.given()
                 .accept("application/json")
@@ -33,7 +33,7 @@ public class GenerateToken {
     }
 
     @Test
-    void GenerateTokenSuccessfully() {
+    void generateTokenSuccessfully() {
         String username = APIConstant.PUBLIC_ACCOUNT_USER_NAME;
         String password = APIConstant.PUBLIC_ACCOUNT_PASSWORD;
 
@@ -43,7 +43,7 @@ public class GenerateToken {
     }
 
     @Test
-    void GenerateTokenUnsuccessfully() {
+    void generateTokenUnsuccessfully() {
         String username = "invalid username";
         String password = APIConstant.PUBLIC_ACCOUNT_PASSWORD;
 

@@ -8,11 +8,11 @@ import utils.api.AccountHelper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GetUser {
+public class GetUserTest {
     AccountHelper accountHelper = new AccountHelper();
 
     @Test
-    void GetUserSuccessfully() {
+    void getUserSuccessfully() {
         String token = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME,APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
 
@@ -21,7 +21,7 @@ public class GetUser {
     }
 
     @Test
-    void GetUserUnsuccessfully() {
+    void getUserUnsuccessfully() {
         String token = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME,APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = "invalid userID";
 

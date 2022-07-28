@@ -8,11 +8,11 @@ import utils.api.AccountHelper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CreateUser {
+public class CreateUserTest {
     AccountHelper accountHelper = new AccountHelper();
 
     @Test
-    void CreateUserSuccessfully() {
+    void createUserSuccessfully() {
         String username = "quantest";
         String password = APIConstant.PUBLIC_ACCOUNT_PASSWORD;
 
@@ -21,7 +21,7 @@ public class CreateUser {
     }
 
     @Test
-    void CreateUserUnsuccessfully() {
+    void createUserUnsuccessfully() {
         String username = "quantest";
         String password = "12345678";
 
