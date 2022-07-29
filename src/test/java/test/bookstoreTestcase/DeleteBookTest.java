@@ -2,7 +2,8 @@ package test.bookstoreTestcase;
 
 import io.restassured.response.Response;
 import org.testng.ITestContext;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.APIConstant;
 import utils.api.AccountHelper;
@@ -15,7 +16,7 @@ public class DeleteBookTest {
     AccountHelper accountHelper = new AccountHelper();
     BookstoreHelper bookstoreHelper = new BookstoreHelper();
 
-    @BeforeTest
+    @BeforeMethod
     public void getUser(ITestContext context) {
         String userToken = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
@@ -75,4 +76,11 @@ public class DeleteBookTest {
         assertThat("verify message: ", response.jsonPath().getString("message"),equalTo("User Id not correct!"));
     }
 
+    @AfterMethod
+    public void cleanCollection(ITestContext context) {
+        String userToken = (String) context.getAttribute("userToken");
+        String userId = (String) context.getAttribute("userId");
+
+        bookstoreHelper.deleteAllBooks(userToken,userId);
+    }
 }

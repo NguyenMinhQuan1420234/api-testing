@@ -1,0 +1,63 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suite" parallel="methods">
+    <!--    <parameter name="browser" value="IE"/>-->
+    <test name="account test">
+        <classes>
+            <class name="test.accountTestcase.CreateUserTest">
+                <methods>
+                    <include name="createUserSuccessfully"/>
+                    <include name="createUserUnsuccessfullyWrongPasswordFormat"/>
+                    <include name="createUserUnsuccessfullyUserExisted"/>
+                </methods>
+            </class>
+            <class name="test.accountTestcase.GenerateTokenTest">
+                <methods>
+                    <include name="generateTokenSuccessfully"/>
+                    <include name="generateTokenUnsuccessfullyUnauthorized"/>
+                    <include name="generateTokenUnsuccessfullyEmptyPassword"/>
+                </methods>
+            </class>
+            <class name="test.accountTestcase.GetUserTest">
+                <methods>
+                    <include name="getUserSuccessfully"/>
+                    <include name="getUserUnsuccessfully"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="bookstore test">
+        <classes>
+            <class name="test.bookstoreTestcase.AddBookTest">
+                <methods>
+                    <include name="addNewBookToCollectionSuccessfully"/>
+                    <include name="addNewBookToCollectionUnsuccessfullyMissingIsbn"/>
+                    <include name="addNewBookToCollectionUnsuccessfullyExistingBook"/>
+                    <include name="addNewBookToCollectionUnsuccessfullyIncorrectUser"/>
+                </methods>
+            </class>
+            <class name="test.bookstoreTestcase.DeleteBookTest">
+                <methods>
+                    <include name="deleteAddedBookInCollectionSuccessfully"/>
+                    <include name="deleteAddedBookInCollectionUnsuccessfullyWrongToken"/>
+                    <include name="deleteAddedBookInCollectionUnsuccessfullyUnexistingIsbn"/>
+                    <include name="deleteAllBooksInCollectionSuccessfully"/>
+                    <include name="deleteAllBooksInCollectionUnsuccessfullyUnauthorized"/>
+                </methods>
+            </class>
+            <class name="test.bookstoreTestcase.GetBookTest">
+                <methods>
+                    <include name="getAllBookInformationSuccessfully"/>
+                    <include name="getOneBookInformationSuccessfully"/>
+                    <include name="getOneBookInformationUnsuccessfully"/>
+                </methods>
+            </class>
+            <class name="test.bookstoreTestcase.ReplaceBookTest">
+                <methods>
+                    <include name="replaceBookInCollectionSuccessfully"/>
+                    <include name="replaceBookInCollectionUnsuccessfullyUnauthorized"/>
+                    <include name="replaceBookInCollectionUnsuccessfullyUnexistingIsbn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

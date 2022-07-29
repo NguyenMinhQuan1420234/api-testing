@@ -2,10 +2,7 @@ package test.bookstoreTestcase;
 
 import io.restassured.response.Response;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import utils.APIConstant;
 import utils.api.AccountHelper;
 import utils.api.BookstoreHelper;
@@ -17,7 +14,7 @@ public class AddBookTest {
     AccountHelper accountHelper = new AccountHelper();
     BookstoreHelper bookstoreHelper = new BookstoreHelper();
 
-    @BeforeTest
+    @BeforeMethod
     public void getUser(ITestContext context) {
         String userToken = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;

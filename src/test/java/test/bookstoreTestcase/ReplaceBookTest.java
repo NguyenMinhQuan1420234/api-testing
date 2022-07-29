@@ -17,19 +17,12 @@ public class ReplaceBookTest {
     AccountHelper accountHelper = new AccountHelper();
     BookstoreHelper bookstoreHelper = new BookstoreHelper();
 
-    @BeforeTest
+    @BeforeMethod
     public void getUser(ITestContext context) {
         String userToken = accountHelper.generateTokenString(APIConstant.PUBLIC_ACCOUNT_USER_NAME, APIConstant.PUBLIC_ACCOUNT_PASSWORD);
         String userId = APIConstant.PUBLIC_ACCOUNT_USER_ID;
         context.setAttribute("userToken", userToken);
         context.setAttribute("userId", userId);
-    }
-
-    @BeforeMethod
-    public void addBookToCollection(ITestContext context) {
-        String userToken = (String) context.getAttribute("userToken");
-        String userId = (String) context.getAttribute("userId");
-
         bookstoreHelper.addNewBooks(userToken, userId, APIConstant.PUBLIC_BOOK_ID);
     }
 
